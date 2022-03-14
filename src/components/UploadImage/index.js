@@ -3,13 +3,14 @@ import { useState } from "react"
 // import { Image } from "../styled/Image.styled"
 // import { Button } from "../styled/Button.style"
 
-export default function Cloudinary(){
+export default function Cloudinary(props){
 
   const [image, setImage] = useState()
   
   const uploadImage = async(e) => {
     const files = e.target.files
     const data = new FormData()
+   
     data.append("file", files[0])
     //first parameter is always upload_preset, second is the name of the preset
     data.append('upload_preset', "b8fucsf0")
@@ -23,18 +24,12 @@ export default function Cloudinary(){
     const file = await res.json()
     console.log("file", file) //check if you are getting the url back
     setImage(file.url) //put the url in local state, next step you can send it to the backend
+    props.onChange(file.url)
   }
 
   return (
-    <div style={{textAlign: "center"}}>
-     
-      
-      
-      <input type="file" onChange={uploadImage}/>
-      <div>
-        <img src={image ? image : "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png"}/>
-       
-      </div>
+    <div>
+       <input type="file" onChange={uploadImage} />
     </div>
   );
 }

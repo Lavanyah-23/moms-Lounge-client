@@ -2,7 +2,7 @@ import { FETCH_STORY_SUCCESS, FETCH_STORY_DETAILS } from "./actions";
 
 const initialState = {
   allStories: [],
-  storyDetails: null,
+  storyDetails: {},
 };
 
 const story = (state = initialState, action) => {
@@ -17,6 +17,8 @@ const story = (state = initialState, action) => {
         ...state,
         storyDetails: { ...state.storyDetails, ...action.payload },
       };
+      
+       
     default:
       return state;
   }
