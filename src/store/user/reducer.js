@@ -1,11 +1,23 @@
-import { LOG_OUT, LOGIN_SUCCESS, TOKEN_STILL_VALID } from "./actions";
+import {
+  LOG_OUT,
+  LOGIN_SUCCESS,
+  TOKEN_STILL_VALID,
+  STORY_UPDATED,
+  SHOW_MODAL,
+  HIDE_MODAL,
+  SET_CURRENT_STORY,
+} from "./actions";
 
 const initialState = {
   token: localStorage.getItem("token"),
   name: null,
-  email: null
+  email: null,
+  isModalOpen: false,
+  modalOp: "",
+  currentStory: null,
 };
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default (state = initialState, action) => {
   switch (action.type) {
     case LOGIN_SUCCESS:
@@ -18,6 +30,24 @@ export default (state = initialState, action) => {
 
     case TOKEN_STILL_VALID:
       return { ...state, ...action.payload };
+
+    case SHOW_MODAL:
+      return {
+        ...state,
+        isModalOpen: true,
+        modalOp: action.payload,
+      };
+    case HIDE_MODAL:
+      return {
+        ...state,
+        isModalOpen: false,
+        modalOp: "",
+      };
+    case SET_CURRENT_STORY:
+      return {
+        ...state,
+        currentStory: { ...action.payload.story },
+      };
 
     default:
       return state;
