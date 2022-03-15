@@ -5,17 +5,31 @@ import {
   appDoneLoading,
   appLoading,
   showMessageWithTimeout,
+  setMessage,
 } from "../appState/actions";
-import {showModal} from "../user/actions"
+import { showModal, hideModal } from "../user/actions";
 export const FETCH_STORY_SUCCESS = "FETCH_STORY_SUCCESS";
 export const FETCH_STORY_DETAILS = "FETCH_STORY_DETAILS";
-export const STORY_UPDATED = "STORY_UPDATED";
-
+export const UPDATE_STORY = "UPDATE_STORY";
+export const ADD_STORY = "ADD_STORY";
 
 export const fetch_Story_Success = (stories) => ({
   type: FETCH_STORY_SUCCESS,
   payload: stories,
 });
+
+export const updatedStory = (story) => {
+  return {
+    type: UPDATE_STORY,
+    payload: story,
+  };
+};
+export const addedStory = (story) => {
+  return {
+    type: ADD_STORY,
+    payload: story,
+  };
+};
 
 export const fetch_Story_Details = (stories) => ({
   type: FETCH_STORY_DETAILS,
@@ -42,12 +56,12 @@ export const fetchStoryById = (id) => {
       // console.log("API call", response.data);
       dispatch(fetch_Story_Details(response.data));
     } catch (e) {
-      console.log(e.message);
+      //console.log(e.message);
     }
   };
 };
 
-export const addMyStory = (title, imageUrl, description) => {
+export const addMyStory = (title, description, imageUrl) => {
   return async (dispatch, getState) => {
     try {
       const response = await axios.post(
@@ -63,15 +77,15 @@ export const addMyStory = (title, imageUrl, description) => {
           },
         }
       );
-
-      // console.log({ response });
-      if (response.status === 200) {
-      } else {
-        window.alert(response.data.message);
-      }
+      //console.log("response", response);
+      dispatch(addedStory(response.data.data));
+      dispatch(hideModal());
+      dispatch(
+        showMessageWithTimeout("success", true, "Created New Story", 3000)
+      );
     } catch (e) {
       console.log(e);
-      window.alert(e.message);
+      dispatch(setMessage("error", false, e.message));
     }
   };
 };
@@ -100,7 +114,9 @@ export const updateMyStory = (title, description, imageUrl, id) => {
       dispatch(
         showMessageWithTimeout("success", false, "update successfull", 3000)
       );
-      dispatch(fetchAllStories());
+      //console.log("responseupdated", response);
+      dispatch(updatedStory(response.data));
+      dispatch(hideModal());
       dispatch(appDoneLoading());
     } catch (e) {
       console.log(e.message);

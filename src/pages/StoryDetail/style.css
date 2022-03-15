@@ -1,0 +1,24 @@
+.details-page {
+  background-color: FFFFFF;
+}
+.product-details {
+  flex-wrap: wrap;
+  background-color: B2B2B2;
+  height: 300px;
+  width: 300px;
+  left: 1702.4981689453125px;
+  top: 2183.87548828125px;
+  border-radius: [object Object]px;
+}
+.description {
+  flex-wrap: wrap;
+  align-content: center;
+  justify-content: flex-start;
+}
+.product-title {
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-size: medium;
+  font-style: oblique;
+  font-weight: 600;
+  color: 535399;
+}

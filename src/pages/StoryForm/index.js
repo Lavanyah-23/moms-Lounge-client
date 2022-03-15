@@ -6,13 +6,18 @@ import Cloudinary from "../../components/UploadImage";
 import { useSelector } from "react-redux";
 import { selectCurrentState } from "../../store/user/selectors";
 import { selectModalOp } from "../../store/user/selectors";
+import { hideModal } from "../../store/user/actions";
 
 const StoryForm = (props) => {
   const modalOp = useSelector(selectModalOp);
   const currentStory = useSelector(selectCurrentState);
   const [title, setTitle] = useState(currentStory ? currentStory.title : "");
-  const [imageUrl, setImageUrl] = useState("");
-  const [description, setDescription] = useState("");
+  const [imageUrl, setImageUrl] = useState(
+    currentStory ? currentStory.imageUrl : ""
+  );
+  const [description, setDescription] = useState(
+    currentStory ? currentStory.description : ""
+  );
   const dispatch = useDispatch();
   console.log("currentstory", currentStory);
 
@@ -23,13 +28,14 @@ const StoryForm = (props) => {
     }
     if (modalOp === "ADD") {
       dispatch(addMyStory(title, description, imageUrl));
+      dispatch(hideModal());
     }
     setDescription("");
     setImageUrl("");
     setTitle("");
   };
   return (
-    <div>
+    <div className="Form_Div">
       <form onSubmit={handleOnSubmit}>
         <input
           type="text"
@@ -43,14 +49,14 @@ const StoryForm = (props) => {
           placeholder="description "
           onChange={(e) => setDescription(e.target.value)}
         />
-        {
+        {/* {
           <input
             type="file"
             placeholder="image"
             value={imageUrl}
             onChange={(e) => setImageUrl(e.target.value)}
           />
-        }
+        } */}
 
         {
           <img
@@ -60,6 +66,7 @@ const StoryForm = (props) => {
                 : "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png"
             }
             alt=""
+            h
             height={"300px"}
           />
         }

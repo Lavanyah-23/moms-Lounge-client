@@ -14,8 +14,8 @@ export const TOKEN_STILL_VALID = "TOKEN_STILL_VALID";
 export const LOG_OUT = "LOG_OUT";
 export const SHOW_MODAL = "SHOW_MODAL";
 export const HIDE_MODAL = "HIDE_MODAL";
-export const SET_CURRENT_STORY = "SET_CURRENT_STORY"
-
+export const SET_CURRENT_STORY = "SET_CURRENT_STORY";
+export const RESET_CURRENT_STORY = "RESET_CURRENT_STORY";
 
 const loginSuccess = (userWithToken) => {
   return {
@@ -24,29 +24,25 @@ const loginSuccess = (userWithToken) => {
   };
 };
 
-
 const tokenStillValid = (userWithoutToken) => ({
   type: TOKEN_STILL_VALID,
   payload: userWithoutToken,
 });
 
-
 export const logOut = () => ({ type: LOG_OUT });
 
-export const showModal= (op)=>({
-  type:SHOW_MODAL,
-  payload:op,
-})
+export const showModal = (op) => ({
+  type: SHOW_MODAL,
+  payload: op,
+});
 
-export const hideModal= ()=>({
-  type:HIDE_MODAL,
-  
-})
-export const setCurrentStory=(story)=>(
-{
-  type:SET_CURRENT_STORY,
-  payload:{story},
-})
+export const hideModal = () => ({
+  type: HIDE_MODAL,
+});
+export const setCurrentStory = (story) => ({
+  type: SET_CURRENT_STORY,
+  payload: story,
+});
 
 export const signUp = (name, email, password) => {
   return async (dispatch, getState) => {
@@ -131,6 +127,3 @@ export const getUserWithStoredToken = () => {
     }
   };
 };
-
-
-

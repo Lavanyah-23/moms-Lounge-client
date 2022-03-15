@@ -6,6 +6,7 @@ import {
   SHOW_MODAL,
   HIDE_MODAL,
   SET_CURRENT_STORY,
+  RESET_CURRENT_STORY,
 } from "./actions";
 
 const initialState = {
@@ -42,11 +43,12 @@ export default (state = initialState, action) => {
         ...state,
         isModalOpen: false,
         modalOp: "",
+        currentStory: null,
       };
     case SET_CURRENT_STORY:
       return {
         ...state,
-        currentStory: { ...action.payload.story },
+        currentStory: { ...action.payload },
       };
 
     default:

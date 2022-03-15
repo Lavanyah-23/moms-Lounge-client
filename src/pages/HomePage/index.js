@@ -15,9 +15,11 @@ import {
   selectModalOp,
   selectToken,
 } from "../../store/user/selectors";
+import "./HomePage.css";
 import StoryCard from "../../components/StoryCard";
 import { hideModal, showModal } from "../../store/user/actions";
 import StoryForm from "../StoryForm";
+import "./HomePage.css";
 
 const placeHolderImage =
   "https://s3.amazonaws.com/gallerist-live/products/40386/large/motherhood-17.jpg?1609839194";
@@ -42,15 +44,18 @@ const HomePage = (props) => {
 
   return (
     <Jumbotron>
-      <h1>Stories</h1>
-      <div>
-        {storiesState.map((story) => {
-          // console.log("getting all stories here", story);
+      <div className="HomePage">
+        <h1>Stories</h1>
+        <Button onClick={() => dispatch(showModal("ADD"))}>Add</Button>
+        <div className="Story_Card_List">
+          {storiesState.map((story) => {
+            // console.log("getting all stories here", story);
 
-          return <StoryCard story={story}></StoryCard>;
-        })}
+            return <StoryCard story={story}></StoryCard>;
+          })}
+        </div>
       </div>
-      <Button onClick={() => dispatch(showModal("ADD"))}>Add</Button>{" "}
+
       <Modal
         show={isModalOpen}
         onHide={() => dispatch(hideModal())}
@@ -60,7 +65,9 @@ const HomePage = (props) => {
       >
         <Modal.Header>
           <Modal.Title id="contained-modal-title-vcenter">
-            Modify your story here
+            {modalOp === "UPDATE"
+              ? "Update your story here"
+              : "Add your story here"}
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -72,7 +79,6 @@ const HomePage = (props) => {
           </Button>
         </Modal.Footer>
       </Modal>
-      );
     </Jumbotron>
   );
 };

@@ -6,6 +6,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { fetchStoryById } from "../../store/story/actions";
 // import story from "../../store/story/reducer";
 import { storyDetailsSelector } from "../../store/story/selector";
+import { selectUser } from "../../store/user/selectors";
 import { Navigate } from "react-router-dom";
 import { Button } from "react-bootstrap";
 
@@ -13,12 +14,12 @@ export default function () {
   const params = useParams();
   const navigate = useNavigate();
   const { id } = params;
+  const user = useSelector(selectUser);
   // console.log(params.id);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchStoryById(id));
-    
   }, []);
 
   const storyDetail = useSelector(storyDetailsSelector);
@@ -26,18 +27,20 @@ export default function () {
 
   return (
     <div>
-      <h2>story by id is:</h2>
-      <div className="imageDisplay_div">
-        <img src={storyDetail.imageUrl} alt="" width="150px"/>
-      </div>
+      <h2> {user.name} story </h2>
       <div className="title_div">
         <h3>{storyDetail.title}</h3>
       </div>
+      <div className="imageDisplay_div">
+        <img src={storyDetail.imageUrl} alt="" width="300px" />
+      </div>
+
       <div className="desc_div">
         <p>{storyDetail.description}</p>
       </div>
-      <Button variant= "secondary" size="sm" onClick={() => {}}>Comment</Button>
-      
+      <Button variant="secondary" size="sm" onClick={() => {}}>
+        Comment
+      </Button>
     </div>
   );
 }

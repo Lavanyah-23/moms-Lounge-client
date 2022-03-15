@@ -1,0 +1,72 @@
+.storyCard_Main {
+  border: solid 2px;
+  padding: 10px;
+  margin: 5px;
+  border-radius: 25px;
+}
+.Story_Info {
+  overflow: hidden;
+  width: 50%;
+
+  display: flex;
+  flex-direction: column;
+  white-space: nowrap;
+
+  text-overflow: ellipsis;
+}
+.storyCard_div {
+  width: auto;
+  height: 400px;
+
+  display: flex;
+  flex-direction: row;
+  justify-items: center;
+}
+.story_title_Div {
+  width: 900px;
+  height: 100px;
+  flex-direction: row;
+}
+.Story_Description_Div {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  word-wrap: break-word;
+  word-break: break-all;
+
+  text-overflow: ellipsis;
+}
+.Image_Div_StoryCard {
+  width: 50%;
+
+  /* white-space: nowrap;
+  word-wrap: break-word;
+
+  text-overflow: ellipsis; */
+}
+.Image_card_div {
+  width: 75%;
+  height: 100%;
+  border-radius: 25px;
+  margin: 10px;
+  justify-content: center;
+  align-content: flex-start;
+  transition: scale 2s;
+}
+.Image_card_div:hover {
+  transform: scale(1.2);
+}
+.View_details_Button {
+  flex-direction: column;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+h3 {
+  justify-content: center;
+}
+/* .storyCard_Des_Div {
+  align-content: center;
+  width: 100px;
+  height: 350px; 
+  justify-content: flex-start;
+} */
