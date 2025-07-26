@@ -18,21 +18,32 @@ export default function AskAI() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!input.trim()) return;
+    
+    // Check if user is logged in
+    if (!token) {
+      setError("Please log in to use AI features");
+      return;
+    }
+    
     setError("");
     setLoading(true);
     const userQuestion = input;
     setInput("");
+    
     try {
+      console.log('Sending AI request with token:', token ? 'Token exists' : 'No token');
       const res = await axios.post(
         `${apiUrl}/ai/chat`,
         { question: userQuestion },
         { headers: { Authorization: `Bearer ${token}` } }
       );
+      console.log('AI response:', res.data);
       setChat([
         ...chat,
         { question: userQuestion, answer: res.data.data.answer },
       ]);
     } catch (e) {
+      console.error('AI request error:', e.response?.data);
       setError(e.response?.data?.message || "Failed to get AI response");
     } finally {
       setLoading(false);

@@ -9,6 +9,7 @@ import { storyDetailsSelector } from "../../store/story/selector";
 import { selectUser } from "../../store/user/selectors";
 import { Navigate } from "react-router-dom";
 import { Button } from "react-bootstrap";
+import CommentSection from "../../components/CommentSection";
 
 export default function () {
   const params = useParams();
@@ -38,9 +39,9 @@ export default function () {
       <div className="desc_div">
         <p>{storyDetail.description}</p>
       </div>
-      <Button variant="secondary" size="sm" onClick={() => {}}>
-        Comment
-      </Button>
+      
+      {/* Instagram/Facebook-style Comment and Like System */}
+      <CommentSection storyId={id} />
     </div>
   );
 }
